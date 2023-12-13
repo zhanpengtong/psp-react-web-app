@@ -16,7 +16,7 @@ function SignIn() {
     }
   };
   return (
-    <div>
+    <div className="col-4">
       <h1 style={{color: '#66CCCC'}}>Log In</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <input
@@ -34,7 +34,7 @@ function SignIn() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={signIn} className="btn btn-primary">
-        Sign In
+        Log In
       </button>
     </div>
   );

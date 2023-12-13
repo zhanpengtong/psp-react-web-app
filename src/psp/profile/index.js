@@ -8,7 +8,15 @@ import { useParams } from "react-router-dom";
 
 function Profile() {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+    email: "",
+    phoneNumber: "",
+    role: "",
+  });
   const fakeUser = {
     firstName: "first name",
     lastName: "last name",
@@ -35,7 +43,12 @@ function Profile() {
     const status = await client.updateUser(user._id, user);
   };
   const updateUser = async () => {
-    const status = await client.updateUser(user._id, user);
+    try {
+      const status = await client.updateUser(user._id, user);
+    //   setUsers(users.map((u) => (u._id === user._id ? user : u)));
+    } catch (err) {
+      console.log(err);
+    }
   };
   
   const signout = async () => {
