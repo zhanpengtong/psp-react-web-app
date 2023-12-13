@@ -11,32 +11,33 @@
 }
 
 .wd-kanbas-navigation {
-  background-color: blue;
+  background-color: #339933;
   list-style: none;
-  padding: 0px;
-  width: 100px;
+  padding: 10px;
+  width: 140px;
   height: 2000px;
   margin: 0px;
+  
 }
 
 .wd-kanbas-navigation a {
-  padding: 5px;
-  margin: 0px;
+  padding: 10px;
+  margin-bottom: 10px;
   font-size: 2em;
   text-align: center;
-  background-color: blue;
+  background-color: #339933;
   border: none;
 }
 
 .wd-kanbas-navigation a.active {
-  background-color: white;
+  background-color: #339933;
 }
 .wd-kanbas-navigation a.active {
-  color: red;
+  color: #FFFFFF;
 }
 
 .wd-kanbas-navigation a {
-  color: white;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -45,3 +46,4 @@
   font-size: 2em;
   margin-bottom: 5px;
 } */
+
