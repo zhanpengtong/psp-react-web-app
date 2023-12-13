@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { BiUserCircle } from "react-icons/bi";
-import { RiDashboard3Fill } from "react-icons/ri";
-import { FaBook } from "react-icons/fa";
-import { BsFillCalendar2WeekFill } from "react-icons/bs";
-import { BsFillInboxFill } from "react-icons/bs";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { FaSlideshare } from "react-icons/fa";
+import { FiLogIn } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+import { GrAddCircle } from "react-icons/gr";
+import { HiOutlineHome } from "react-icons/hi";
+import { FaSearch } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import { SiSellfy } from "react-icons/si";
+import { BiDetail } from "react-icons/bi";
 import React from "react";
 import "./index.css";
 <script src="https://kit.fontawesome.com/e54e112e4f.js" crossorigin="anonymous"></script>
@@ -13,19 +14,20 @@ import "./index.css";
 function PspNavigation() {
   const links = ["LogIn", "Register", "Profile", "Home", "Search", "Cart", "Details", "Seller"];
   const linkToIconMap = {
-    Login: <RiDashboard3Fill className="wd-icon" />,
-    Profile: <RiDashboard3Fill className="wd-icon" />,
-    Home: <FaBook className="wd-icon" />,
-    Search: <BsFillCalendar2WeekFill className="wd-icon" />,
-    Cart: <BsFillInboxFill className="wd-icon" />,
-    Details: <AiOutlineClockCircle className="wd-icon" />,
-    Seller: <FaSlideshare className="wd-icon" />,
+    LogIn: <FiLogIn className="wd-icon" />,
+    Register: <GrAddCircle className="wd-icon" />,
+    Profile: <CgProfile className="wd-icon" />,
+    Home: <HiOutlineHome className="wd-icon" />,
+    Search: <FaSearch className="wd-icon" />,
+    Cart: <FiShoppingCart className="wd-icon" />,
+    Details: <BiDetail className="wd-icon" />,
+    Seller: <SiSellfy className="wd-icon" />,
   };
 
 
   const { pathname } = useLocation();
   return (
-    <div className="list-group wd-kanbas-navigation" style={{ }}>
+    <div className="list-group wd-kanbas-navigation" style={{ width: 150 }}>
       {links.map((link, index) => (
         <Link
           key={index}
@@ -33,7 +35,6 @@ function PspNavigation() {
           className={`list-group-item ${pathname.includes(link) && "active"}`}
         >
           {linkToIconMap[link]}
-          <br/>
           {link}
         </Link>
       ))}

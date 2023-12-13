@@ -1,4 +1,4 @@
-import * as client from "../client.js";
+import * as client from "../client";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 function SignIn() {
@@ -10,15 +10,15 @@ function SignIn() {
     try {
       const credentials = { username: username, password: password };
       const user = await client.signin(credentials);
-      navigate("/project/users/account");
+      navigate("/psp/profile");
     } catch (error) {
-      setError(error);
+      setError("Your username or password is incorrect.");
     }
   };
   return (
     <div>
-      <h2>Sign In</h2>
-      {error && <div className="alert alert-danger">{error.message}</div>}
+      <h1>Log In</h1>
+      {error && <div className="alert alert-danger">{error}</div>}
       <input
         type="text"
         className="form-control"
