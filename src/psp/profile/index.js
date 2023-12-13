@@ -5,6 +5,7 @@ import * as client from "../client";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import logo2 from "../images/logo2.png";
 
 function Profile() {
   const { id } = useParams();
@@ -63,12 +64,11 @@ function Profile() {
   }, []);
   return (
     <div>
-        <div className="row">
-          <h1 style={{color: '#66CCCC'}}>Profile</h1>
-          <hr />
-          <br />
+        <div className="col-4 mx-auto">
+        < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
+          <h1 style={{color: '#66CCCC', textAlign: 'center'}}>Profile</h1>
         </div>
-        <div className="col-6">
+        <div className="col-4 mx-auto">
             {user && (
               <div>
                 <label> First Name </label>

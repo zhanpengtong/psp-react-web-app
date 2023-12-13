@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {  BsFillCheckCircleFill, BsPencil, BsPlusCircleFill, BsTrash3Fill  } from "react-icons/bs";
 import * as client from "../client";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import logo2 from "../images/logo2.png";
 function EditUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({ username: "", password: "", firstName: "", lastName: "", role: "USER"});
@@ -50,79 +51,82 @@ function EditUser() {
   useEffect(() => { fetchUsers(); }, []);
   return (
     <div>
-      <h1 style={{color: '#66CCCC'}}>User List</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-          <tr >
-            <td>
-              <input 
-                type="text"
-                className="form-control"
-                placeholder="username"
-                value={user.username} 
-                onChange={(e) => setUser({ ...user, username: e.target.value })}/>
-              <input 
-                type="passwrd"
-                className="form-control"
-                placeholder="password"
-                value={user.password} 
-                onChange={(e) => setUser({ ...user, password: e.target.value })}/>
-            </td>
-            <td>
-              <input 
-                ype="text"
-                className="form-control"
-                placeholder="first name"
-                value={user.firstName}
-                onChange={(e) => setUser({ ...user, firstName: e.target.value })}/>
-            </td>
-            <td>
-              <input 
-                type="text"
-                className="form-control"
-                placeholder="last name"
-                value={user.lastName}
-                onChange={(e) => setUser({ ...user, lastName: e.target.value })}/>
-            </td>
-            <td>
-              <select 
-                className="form-control"
-                value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })}>
-                <option value="USER">User</option>
-                <option value="ADMIN">Admin</option>
-                <option value="SELLER">SELLER</option>
-              </select>
-            </td>
-            <td>
-                <BsFillCheckCircleFill onClick={updateUser}
-                    className="me-2 text-success fs-1 text" />
-                <BsPlusCircleFill onClick={createUser}
-                    className="text-success fs-1 text" />
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user.username}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td className="text-nowrap">
-                 <button className="btn btn-danger me-2">
-                    <BsTrash3Fill onClick={() => deleteUser(user)} />
-                 </button>
-                 <button className="btn btn-warning me-2">
-                    <BsPencil onClick={() => selectUser(user)} />
-                 </button>
-              </td>
-            </tr>))}
-        </tbody>
-      </table>
+        <div className="col-4 mx-auto">
+            < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
+            <h1 style={{color: '#66CCCC', textAlign: 'center'}}>User List</h1>
+        </div>
+        <div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              </tr>
+              <tr >
+                <td>
+                  <input 
+                    type="text"
+                    className="form-control"
+                    placeholder="username"
+                    value={user.username} 
+                    onChange={(e) => setUser({ ...user, username: e.target.value })}/>
+                  <input 
+                    type="passwrd"
+                    className="form-control"
+                    placeholder="password"
+                    value={user.password} 
+                    onChange={(e) => setUser({ ...user, password: e.target.value })}/>
+                </td>
+                <td>
+                  <input 
+                    ype="text"
+                    className="form-control"
+                    placeholder="first name"
+                    value={user.firstName}
+                    onChange={(e) => setUser({ ...user, firstName: e.target.value })}/>
+                </td>
+                <td>
+                  <input 
+                    type="text"
+                    className="form-control"
+                    placeholder="last name"
+                    value={user.lastName}
+                    onChange={(e) => setUser({ ...user, lastName: e.target.value })}/>
+                </td>
+                <td>
+                  <select 
+                    className="form-control"
+                    value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })}>
+                    <option value="USER">User</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="SELLER">SELLER</option>
+                  </select>
+                </td>
+                <td>
+                    <BsFillCheckCircleFill onClick={updateUser}
+                        className="me-2 text-success fs-1 text" />
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.username}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td className="text-nowrap">
+                    <button className="btn btn-danger me-2">
+                        <BsTrash3Fill onClick={() => deleteUser(user)} />
+                    </button>
+                    <button className="btn btn-warning me-2">
+                        <BsPencil onClick={() => selectUser(user)} />
+                    </button>
+                  </td>
+                </tr>))}
+            </tbody>
+          </table>
+        </div>
     </div>
   );
 }

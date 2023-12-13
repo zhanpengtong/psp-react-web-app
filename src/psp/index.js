@@ -15,7 +15,7 @@ function Psp() {
   return (
     <Router>
       <div className="d-flex">
-        <div className="col-2">
+        <div >
           <PspNavigation />
         </div>
         <div className="col">
