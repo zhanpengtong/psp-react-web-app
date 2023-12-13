@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import * as client from "../client";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +7,15 @@ import { useParams } from "react-router-dom";
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const fakeUser = {
+    firstName: "first name",
+    lastName: "last name",
+    username: "username",
+    password: "password",
+    email: "email",
+    phoneNumber: "phone number",
+    role: "USER",
+  };
   const findUserById = async (id) => {
     const user = await client.findUserById(id);
     setUser(user);
@@ -16,7 +26,7 @@ function Profile() {
       const user = await client.account();
       setUser(user);
     } catch (error) {
-      navigate("/psp/login");
+      setUser(fakeUser);
     }
   };
   const save = async () => {
