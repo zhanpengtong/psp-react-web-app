@@ -1,7 +1,7 @@
 function Details() {
     return (
         <div>
-            <h1>Details</h1>
+            <h1 style={{color: '#66CCCC'}}>Details</h1>
         </div>
     )
 }

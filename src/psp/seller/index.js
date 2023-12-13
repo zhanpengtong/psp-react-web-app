@@ -1,7 +1,7 @@
 function Seller () {
   return (
     <div>
-      <h1>Seller</h1>
+      <h1 style={{color: '#66CCCC'}}>Seller</h1>
     </div>
   )
 }

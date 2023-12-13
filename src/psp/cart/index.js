@@ -1,7 +1,7 @@
 function Cart() {
   return (
     <div>
-      <h1>Cart</h1>
+      <h1 style={{color: '#66CCCC'}}>Cart</h1>
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import { set } from "mongoose";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import allUser from "./allUser";
 import * as client from "../client";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,71 +50,90 @@ function Profile() {
   }, []);
   return (
     <div>
-      <h1>Profile</h1>
-      {user && (
-        <div>
-          <input
-            type="text"
-            className="form-control"
-            value={user.firstName}
-            onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-            />
-          <input
-            type="text"
-            className="form-control"
-            value={user.lastName}
-            onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-            />
-          <input
-            type="text"
-            className="form-control"
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
-          />
-          <input
-            type="text"
-            className="form-control"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-          />
-          <input
-            type="email"
-            className="form-control"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-          />
-          <input
-            type="text"
-            className="form-control"
-            value={user.phoneNumber}
-            onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
-          />
-          <select
-            className="form-control"
-            value={user.role}
-            onChange={(e) => setUser({ ...user, role: e.target.value })}
-          >
-            <option value="SELLER">SELLER</option>
-            <option value="ADMIN">ADMIN</option>
-            <option value="USER">USER</option>
-          </select>
-          <button onClick={updateUser} className="btn btn-primary">
-            Update
-          </button>
-          <button onClick={signout} className="btn btn-danger">
-            Sign Out
-          </button>
-          <button onClick={save} className="btn btn-primary" >
-            Save
-          </button>
-
-          {user.role === "ADMIN" && (
-            <Link to="/project/admin/users" className="btn btn-warning">
-              Users
-            </Link>
-          )}
+        <div className="row">
+          <h1 style={{color: '#66CCCC'}}>Profile</h1>
+          <hr />
+          <br />
         </div>
-      )}
+        <div className="col-6">
+            {user && (
+              <div>
+                <label> First Name </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.firstName}
+                  onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+                  />
+                <br /><label> Last Name </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.lastName}
+                  onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+                  />
+                <br /><label> Username </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.username}
+                  onChange={(e) => setUser({ ...user, username: e.target.value })}
+                />
+                <br /><label> Password </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.password}
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                />
+                <br /><label> Email </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                />
+                <br /><label> Phone Number </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.phoneNumber}
+                  onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
+                />
+                <br /><label> Role </label>
+                <select
+                  className="form-control"
+                  value={user.role}
+                  onChange={(e) => setUser({ ...user, role: e.target.value })}
+                >
+                  <option value="SELLER">SELLER</option>
+                  <option value="ADMIN">ADMIN</option>
+                  <option value="USER">USER</option>
+                </select>
+                <button onClick={updateUser} className="btn btn-primary">
+                  Update
+                </button>
+                <button onClick={signout} className="btn btn-danger">
+                  Sign Out
+                </button>
+                <button onClick={save} className="btn btn-primary" >
+                  Save
+                </button>
+                
+                {["USER", "SELLER"].includes(user.role) && (
+                  <Link to="/psp/profile/allUser" className="btn btn-warning">
+                    All Users
+                  </Link>
+                )}
+                
+                {user.role === "ADMIN" && (
+                  <Link to="/psp/profile/editUser" className="btn btn-warning">
+                    Edit Users
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
     </div>
   );
 }

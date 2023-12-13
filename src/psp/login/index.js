@@ -17,7 +17,7 @@ function SignIn() {
   };
   return (
     <div>
-      <h1>Log In</h1>
+      <h1 style={{color: '#66CCCC'}}>Log In</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <input
         type="text"
