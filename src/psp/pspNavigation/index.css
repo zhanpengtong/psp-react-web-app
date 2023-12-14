@@ -1,26 +1,26 @@
-.wd-kanbas-navigation .wd-icon {
+.wd--navigation .wd-icon {
   font-size: 1.5em;
   color: #FF99CC;
 }
 
-.wd-kanbas-navigation .list-group-item:first-child,
-.wd-kanbas-navigation .list-group-item:last-child,
-.wd-kanbas-navigation .list-group-item.active:last-child,
-.wd-kanbas-navigation.list-group {
+.wd-navigation .list-group-item:first-child,
+.wd-navigation .list-group-item:last-child,
+.wd-navigation .list-group-item.active:last-child,
+.wd-navigation.list-group {
   border-radius: 0px;
 }
 
-.wd-kanbas-navigation {
+.wd-navigation {
   background-color: #66CCCC;
   list-style: none;
   padding: 10px;
   width: 140px;
-  height: 2000px;
+  height: 4000px;
   margin: 0px;
   
 }
 
-.wd-kanbas-navigation a {
+.wd-navigation a {
   display: flex;  
   justify-content: center;
   align-items: center;
@@ -31,19 +31,19 @@
   border: none;
 }
 
-.wd-kanbas-navigation a.active {
+.wd-navigation a.active {
   background-color: #CCFF66;
 }
-.wd-kanbas-navigation a.active {
+.wd-navigation a.active {
   color: #FF99CC;
 }
 
-.wd-kanbas-navigation a {
+.wd-navigation a {
   color: #000000;
   text-decoration: none;
 }
 
-/* .wd-kanbas-navigation a i {
+/* .wd-navigation a i {
   color: red;
   font-size: 2em;
   margin-bottom: 5px;
