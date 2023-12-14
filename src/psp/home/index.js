@@ -60,7 +60,7 @@ function Home() {
                 <tbody>
                   <tr>
                     <td className="table-primary">
-                      <Link to={`/psp/item/${item._id}`}>{item.itemName}</Link>
+                      <Link to={`/psp/details/${item._id}`}>{item.itemName}</Link>
                     </td>
                   </tr>
                   <tr>

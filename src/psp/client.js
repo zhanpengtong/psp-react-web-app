@@ -3,11 +3,12 @@ import axios from "axios";
 const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
 const USERS_API = `${API_BASE}/api/users`;
 const ITEMS_API = `${API_BASE}/api/items`;
+const REVIEWS_API = `${API_BASE}/api/reviews`;
 const request = axios.create({
   withCredentials: true,
 });
 
-
+// User API
 export const signin = async (credentials) => {
   const response = await request.post(`${USERS_API}/signin`, credentials);
   return response.data;
@@ -101,6 +102,7 @@ export const clearSeller = async (id) => {
 }
 
 
+// Item API
 export const findItemByName = async (itemName) => {
   const response = await request.get(`${ITEMS_API}/findbyname/${itemName}`);
   return response.data;
@@ -127,5 +129,32 @@ export const updateItem = async (id, item) => {
 }
 export const deleteItem = async (id) => {
   const response = await request.delete(`${ITEMS_API}/delete/${id}`);
+  return response.data;
+}
+
+
+// Reviews API
+export const findAllReviews = async () => {
+  const response = await request.get(`${REVIEWS_API}`);
+  return response.data;
+}
+
+export const findReviewByUserId = async (id) => {
+  const response = await request.get(`${REVIEWS_API}/userid/${id}`);
+  return response.data;
+}
+
+export const findReviewByItemId = async (itemId) => {
+  const response = await request.get(`${REVIEWS_API}/itemid/${itemId}`);
+  return response.data;
+}
+
+export const createReview = async (users, itemId, review) => {
+  const response = await request.get(`${REVIEWS_API}/create/${users}/${itemId}/${review}`);
+  return response.data;
+}
+
+export const deleteReview = async (userId, itemId) => {
+  const response = await request.delete(`${REVIEWS_API}/delete/${userId}/${itemId}`);
   return response.data;
 }

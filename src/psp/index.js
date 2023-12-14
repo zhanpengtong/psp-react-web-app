@@ -26,7 +26,7 @@ function Psp() {
             <Route path="/psp/home" element={<Home />} />
             <Route path="/psp/search" element={<Search />} />
             <Route path="/psp/cart" element={<Cart />} />
-            <Route path="/psp/details" element={<Details />} />
+            <Route path="/psp/details/:id" element={<Details />} />
             <Route path="/psp/seller" element={<Seller />} />
             <Route path="/psp/profile/allUser" element={<Alluser />} />
             <Route path="/psp/profile/editUser" element={<EditUser />} />
