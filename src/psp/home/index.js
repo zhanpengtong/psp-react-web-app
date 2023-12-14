@@ -24,9 +24,6 @@ function Home() {
     } catch (error) {
     }
   };
-  const addItem = async (userId, itemId) => {
-    const status = await client.addToCart(userId, itemId);
-  }
 
   const signout = async () => {
     const status = await client.signout();
@@ -53,32 +50,36 @@ function Home() {
           <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
           <h1 style={{ color: '#66CCCC', textAlign: 'center'}}>Home</h1>
         </div>
-        <div className=" mx-auto">
-          {items.map((item) => (
-            <div key={item.id}>
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <td className="table-primary">
-                      <Link to={`/psp/details/${item._id}`}>{item.itemName}</Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p>{item.category}</p>
-                      <p style={{ float: 'right' }}>${item.Price}</p>
-                      {user && (
-                        <td>
-                          <button onClick={() => addItem(user._id, item._id)} className="btn btn-primary">Add to Cart</button>
-                        </td>
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        {items.map((item) => (
+          <div key={item.id} className="card">
+            <div className="card-header">
+              <h3>{item.itemName}</h3>
             </div>
-          ))}
-      </div>
+            <div className="card-body">
+              <p className="card-text">Category: {item.category}</p>
+              <p className="card-text" style={{ float: 'right' }}>Price: ${item.Price}</p>
+              <div style={{ clear: 'both' }}></div> {/* Clears the float */}
+              <div className="button-group" style={{ marginTop: '20px' }}>
+                {user && (
+                  <button onClick={async () => { await client.addOneCartByUserId(
+                        user._id,
+                        item._id,
+                        user.username,
+                        item.itemName,
+                        item.Price
+                      );}}
+                    className="btn btn-primary"
+                    style={{ marginRight: '10px' }}>
+                    Add to Cart
+                  </button>
+                )}
+                <Link to={`/psp/details/${item._id}`} className="btn btn-primary">
+                  See details
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

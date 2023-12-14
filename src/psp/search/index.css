@@ -1,0 +1,27 @@
+.card-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers cards horizontally */
+    width: 100%;
+  }
+  
+  .card {
+    border-bottom: 1px solid #eee; /* Adds a line between rows */
+    margin: 10px; /* Adds space on all sides of the card */
+    padding: 10px; /* Adds some spacing around the content */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+    width: calc(100% - 20px); /* Adjust width to account for margins */
+  }
+  
+  .card-body {
+    padding: 10px; /* Adds internal spacing for the cell */
+  }
+  
+  .card-title {
+    margin: 0 0 5px 0; /* Adjusts spacing around the title */
+  }
+  
+  .card-text {
+    margin: 0; /* Adjusts spacing around the text */
+  }
+  

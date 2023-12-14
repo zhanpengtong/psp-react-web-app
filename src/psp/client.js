@@ -4,6 +4,7 @@ const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
 const USERS_API = `${API_BASE}/api/users`;
 const ITEMS_API = `${API_BASE}/api/items`;
 const REVIEWS_API = `${API_BASE}/api/reviews`;
+const CARTS_API = `${API_BASE}/api/carts`;
 const request = axios.create({
   withCredentials: true,
 });
@@ -131,6 +132,10 @@ export const deleteItem = async (id) => {
   const response = await request.delete(`${ITEMS_API}/delete/${id}`);
   return response.data;
 }
+export const searchItem = async (matchAny) => {
+  const response = await request.get(`${ITEMS_API}/search/${matchAny}`);
+  return response.data;
+}
 
 
 // Reviews API
@@ -149,12 +154,40 @@ export const findReviewByItemId = async (itemId) => {
   return response.data;
 }
 
-export const createReview = async (users, itemId, review) => {
-  const response = await request.get(`${REVIEWS_API}/create/${users}/${itemId}/${review}`);
+export const createReview = async (users, itemId, review, username, itemname) => {
+  const response = await request.get(`${REVIEWS_API}/create/${users}/${itemId}/${review}/${username}/${itemname}`);
   return response.data;
 }
 
 export const deleteReview = async (userId, itemId) => {
   const response = await request.delete(`${REVIEWS_API}/delete/${userId}/${itemId}`);
+  return response.data;
+}
+
+
+// Cart API
+
+export const findCartByUserId = async (id) => {
+  const response = await request.get(`${CARTS_API}/userid/${id}`);
+  return response.data;
+}
+
+export const deleteOneCartByUserId = async (userId, itemId) => {
+  const response = await request.delete(`${CARTS_API}/delete/${userId}/${itemId}`);
+  return response.data;
+}
+
+export const addOneCartByUserId = async (userId, itemId, username, itemname, price) => {
+  const response = await request.get(`${CARTS_API}/add/${userId}/${itemId}/${username}/${itemname}/${price}`);
+  return response.data;
+}
+
+export const deleteAllCartByUserId = async (userId) => {
+  const response = await request.delete(`${CARTS_API}/deleteall/${userId}`);
+  return response.data;
+}
+
+export const totalPrices = async (userId) => {
+  const response = await request.get(`${CARTS_API}/total/${userId}`);
   return response.data;
 }

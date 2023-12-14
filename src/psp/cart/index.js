@@ -1,77 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo2 from '../images/logo2.png';
 import * as client from '../client';
-import { useParams, useNavigate } from 'react-router-dom';
 
 function Cart() {
-  const { id } = useParams();
   const [user, setUser] = useState(null);
-  const findUserById = async (id) => {
-    const user = await client.findUserById(id);
-    setUser(user);
-  };
+  const [carts, setCarts] = useState([]);
   const navigate = useNavigate();
+
   const fetchUser = async () => {
     try {
       const user = await client.account();
       setUser(user);
     } catch (error) {
+      // Handle error here (e.g., navigate to login page or show error message)
     }
   };
 
-  const [cartItems, setCartItems] = useState(null);
-  const findCartItems = async (id) => {
-    const cartItems = await client.findCartItems(id);
-    setCartItems(cartItems);
+  const fetchCarts = async () => {
+    if (user) {
+      const carts = await client.findCartByUserId(user._id);
+      setCarts(carts);
+    }
   };
-  const [items, setItems] = useState([]);
-  const whatIsInCart = async (items) => {
-    const itemsInCart = await Promise.all(items.map(async (item) => {
-      const cartItems = await client.findItemById(item);
-      return cartItems;
-    }));
-  
-    setItems(itemsInCart);
-  };  
-  const signout = async () => {
-    const status = await client.signout();
-    navigate("/psp/login");
+
+  const deleteCart = async (userId, itemId) => {
+    await client.deleteOneCartByUserId(userId, itemId);
+    fetchCarts(); // Fetch updated cart list instead of reloading the page
   };
+
+  const getTotalPrice = () => {
+    return carts.reduce((total, cart) => total + cart.price, 0);
+  };
+
   useEffect(() => {
-    if (id) {
-      findUserById(id);
-    } else
     fetchUser();
   }, []);
 
   useEffect(() => {
-    if (user) {
-      findCartItems(user._id);
-    }
-  }
-  , [user]);
-
-  useEffect(() => {
-    if (cartItems) {
-      whatIsInCart(cartItems);
-    }
-  }
-  , [cartItems]);
+    fetchCarts();
+  }, [user]);
 
   return (
     <div>
-      <div>
-        <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
-        <h1 style={{ color: '#66CCCC', textAlign: 'center' }}>Cart</h1>
-        {user && <p>User ID: {user._id}</p>}
-        {items && items.map((item) => (
-          <div key={item._id}>
-            <p>Item Name: {item.itemName}</p>
-            <p>Price: {item.Price}</p>
+      <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
+      <h1 style={{ color: '#66CCCC', textAlign: 'center' }}>Cart</h1>
+      {user && (
+        <div>
+          <h4 style={{ textAlign: 'left' }}>Welcome {user.firstName} {user.lastName}!</h4>
+          <h5 style={{ textAlign: 'left' }}>Your Cart</h5>
+          {carts.map((cart) => (
+            <div key={cart._id} className="card">
+              <div className="card-header">
+                {cart.itemname}
+              </div>
+              <div className="card-body" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <p className="card-text">${cart.price}</p>
+                <button className="btn btn-danger" onClick={() => deleteCart(cart.user, cart.itemId)}>Delete</button>
+              </div>
+            </div>
+          ))}
+          <div className="total-price" style={{ textAlign: 'right', marginTop: '20px' }}>
+            <strong>Total Price: ${getTotalPrice().toFixed(2)}</strong>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

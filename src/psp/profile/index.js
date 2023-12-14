@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import logo2 from "../images/logo2.png";
 
 function Profile() {
+  
   const { id } = useParams();
   const [user, setUser] = useState({
     firstName: "",
@@ -51,6 +52,12 @@ function Profile() {
       console.log(err);
     }
   };
+  const [lists, setlists] = useState([]);
+  const fetchReviewsById = async (id) => {
+    const lists = await client.findReviewByUserId(id);
+    setlists(lists);
+};
+  
   
   const signout = async () => {
     const status = await client.signout();
@@ -59,9 +66,11 @@ function Profile() {
   useEffect(() => {
     if (id) {
       findUserById(id);
+      fetchReviewsById(id);
     } else
     fetchUser();
   }, []);
+  console.log("List Object:", lists);
   return (
     <div>
         <div className="col-4 mx-auto">
@@ -92,6 +101,10 @@ function Profile() {
                   value={user.username}
                   onChange={(e) => setUser({ ...user, username: e.target.value })}
                 />
+              </div>
+            )}
+            {(!id) && (
+              <div>
                 <br /><label> Password </label>
                 <input
                   type="text"
@@ -138,7 +151,7 @@ function Profile() {
                     All Users
                   </Link>
                 )}
-                
+                  
                 {user.role === "ADMIN" && (
                   <Link to="/psp/profile/editUser" className="btn btn-warning">
                     Edit Users
@@ -146,7 +159,17 @@ function Profile() {
                 )}
               </div>
             )}
-          </div>
+            <div>
+              <h3>Review List:</h3>
+              <ul>
+                {lists.map((list) => (
+                  <li key={list._id}>
+                    <Link to={`/psp/details/${list.itemId}`}>{list.itemname}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+      </div>
     </div>
   );
 }

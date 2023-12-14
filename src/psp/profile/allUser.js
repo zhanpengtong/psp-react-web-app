@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as client from "../client";
 import logo2 from "../images/logo2.png";
+import { Link, useParams } from "react-router-dom";
+
 function Alluser() {
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
@@ -26,7 +28,7 @@ function Alluser() {
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <td>{user.username}</td>
+                <td><Link to={`/psp/profile/${user._id}`}>{user.username}</Link></td>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
               </tr>))}

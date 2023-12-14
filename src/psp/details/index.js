@@ -1,8 +1,9 @@
 import React from 'react';
 import logo2 from '../images/logo2.png';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as client from '../client';
+import { Card } from 'react-bootstrap';
 
 function Details() {
     const { id } = useParams();
@@ -21,10 +22,11 @@ function Details() {
 
     const [review, setReview] = useState("");
     const handleReviewSubmit = async (review) => {
-        const status = await client.createReview(user._id, id, review);
+        const reviewUsername = user.username;
+        const itemname = item.itemName;
+        const status = await client.createReview(user._id, id, review, reviewUsername, itemname);
         window.location.reload();
-    }
-
+    }    
     const [user, setUser] = useState(null);
     const fetchUser = async () => {
         try {
@@ -66,17 +68,36 @@ function Details() {
                             <td>Category:</td>
                             <td>{item.category}</td>
                         </tr>
+                        <tr>
+                            {user && (
+                                <button onClick={async () => { await client.addOneCartByUserId(
+                                        user._id,
+                                        item._id,
+                                        user.username,
+                                        item.itemName,
+                                        item.Price
+                                    );}}
+                                    className="btn btn-primary"
+                                    style={{ marginRight: '10px' }}>
+                                    Add to Cart
+                                </button>
+                            )}
+                        </tr>
                     </tbody>
                 </table>
-                <table className="table">
+                <div>
                     {reviews.map((review) => (
-                        <tr key={review}>
-                            <td>Review:</td>
-                            <td>{review.user}</td>
-                            <td>{review.review}</td>
-                        </tr>
+                        <div key={review}>
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>Review:</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted"><Link to={`/psp/profile/${review.user}`}>By User: {review.username}</Link></Card.Subtitle>
+                                    <Card.Text>{review.review}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </div>
                     ))}
-                </table>
+                </div>
                 {user && (<table className="table">
                     <tr>
                         <td>Write a Review:</td>
@@ -84,7 +105,7 @@ function Details() {
                             <input type="text" value={review} onChange={(e) => setReview(e.target.value)} />
                         </td>
                         <td>
-                            <button onClick={() => handleReviewSubmit(review)} className="btn btn-primary">Submit</button>
+                            <button className="btn btn-primary" onClick={() => handleReviewSubmit(review)}>Submit</button>
                         </td>
                     </tr>
                 </table>)}
