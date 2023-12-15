@@ -44,51 +44,51 @@ function Details() {
     , []);
 
     return (
-        <div>
+        <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
             <div className="col-4 mx-auto">
                 <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
                 <h1 style={{ color: '#66CCCC', textAlign: 'center'}}>Details</h1>
             </div>
-            <div>
+            <div className="col-11 mx-auto">
                 <table className="table">
                     <tbody>
                         <tr>
-                            <td>Item Name:</td>
-                            <td>{item.itemName}</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>Item Name:</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>{item.itemName}</td>
                         </tr>
                         <tr>
-                            <td>Price:</td>
-                            <td>${item.Price}</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>Price:</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>${item.Price}</td>
                         </tr>
                         <tr>
-                            <td>Description:</td>
-                            <td>{item.description}</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>Description:</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>{item.description}</td>
                         </tr>
                         <tr>
-                            <td>Category:</td>
-                            <td>{item.category}</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>Category:</td>
+                            <td style={{ backgroundColor: '#F0FFFF' }}>{item.category}</td>
                         </tr>
-                        <tr>
-                            {user && (
-                                <button onClick={async () => { await client.addOneCartByUserId(
+                    </tbody>
+                </table>
+                {user && (
+                    <div className="d-flex justify-content-end">
+                                <button className="btn btn-primary"
+                                    style={{ float: 'end' }}
+                                    onClick={async () => { await client.addOneCartByUserId(
                                         user._id,
                                         item._id,
                                         user.username,
                                         item.itemName,
                                         item.Price
-                                    );}}
-                                    className="btn btn-primary"
-                                    style={{ marginRight: '10px' }}>
+                                    );}}>
                                     Add to Cart
                                 </button>
-                            )}
-                        </tr>
-                    </tbody>
-                </table>
+                    </div>
+                )}
                 <div>
                     {reviews.map((review) => (
-                        <div key={review}>
-                            <Card>
+                        <div key={review} >
+                            <Card >
                                 <Card.Body>
                                     <Card.Title>Review:</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted"><Link to={`/psp/profile/${review.user}`}>By User: {review.username}</Link></Card.Subtitle>
@@ -98,17 +98,23 @@ function Details() {
                         </div>
                     ))}
                 </div>
-                {user && (<table className="table">
-                    <tr>
-                        <td>Write a Review:</td>
-                        <td>
-                            <input type="text" value={review} onChange={(e) => setReview(e.target.value)} />
-                        </td>
-                        <td>
-                            <button className="btn btn-primary" onClick={() => handleReviewSubmit(review)}>Submit</button>
-                        </td>
-                    </tr>
-                </table>)}
+                {user && (
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">Write a Review:</h5>
+                            <div className="input-group mb-3">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                />
+                            </div>
+                            <button className="btn btn-primary float-end" onClick={() => handleReviewSubmit(review)} > Submit </button>
+                        </div>
+                    </div>
+                )}
+
             </div>
         </div>
     )

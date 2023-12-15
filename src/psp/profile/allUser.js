@@ -11,26 +11,26 @@ function Alluser() {
   };
   useEffect(() => { fetchUsers(); }, []);
   return (
-    <div>
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
       <div className="col-4 mx-auto">
         < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
         <h1 style={{color: '#66CCCC', textAlign: 'center'}}>User List</h1>
       </div>
       <div>
-        <table className="table">
+        <table className="table" >
           <thead>
             <tr>
-              <th>Username</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th style={{ backgroundColor: '#F0FFFF' }}>Username</th>
+              <th style={{ backgroundColor: '#F0FFFF' }}>First Name</th>
+              <th style={{ backgroundColor: '#F0FFFF' }}>Last Name</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id}>
-                <td><Link to={`/psp/profile/${user._id}`}>{user.username}</Link></td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
+              <tr key={user._id} >
+                <td style={{ backgroundColor: '#F0FFFF' }}><Link to={`/psp/profile/${user._id}`}>{user.username}</Link></td>
+                <td style={{ backgroundColor: '#F0FFFF' }}>{user.firstName}</td>
+                <td style={{ backgroundColor: '#F0FFFF' }}>{user.lastName}</td>
               </tr>))}
           </tbody>
         </table>

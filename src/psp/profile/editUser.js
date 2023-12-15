@@ -3,6 +3,7 @@ import {  BsFillCheckCircleFill, BsPencil, BsPlusCircleFill, BsTrash3Fill  } fro
 import * as client from "../client";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo2 from "../images/logo2.png";
+
 function EditUser() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({ username: "", password: "", firstName: "", lastName: "", role: "USER"});
@@ -50,72 +51,71 @@ function EditUser() {
   };
   useEffect(() => { fetchUsers(); }, []);
   return (
-    <div>
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
         <div className="col-4 mx-auto">
             < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
             <h1 style={{color: '#66CCCC', textAlign: 'center'}}>User List</h1>
         </div>
         <div>
-          <table className="table">
+          <table className="table" >
             <thead>
-              <tr>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
               <tr >
-                <td>
+                <th style={{ backgroundColor: '#F0FFFF' }}>Username
                   <input 
-                    type="text"
-                    className="form-control"
-                    placeholder="username"
-                    value={user.username} 
-                    onChange={(e) => setUser({ ...user, username: e.target.value })}/>
+                      type="text"
+                      className="form-control"
+                      placeholder="username"
+                      value={user.username} 
+                      onChange={(e) => setUser({ ...user, username: e.target.value })}/>
+                </th>
+                <th style={{ backgroundColor: '#F0FFFF' }}>Password
                   <input 
-                    type="passwrd"
-                    className="form-control"
-                    placeholder="password"
-                    value={user.password} 
-                    onChange={(e) => setUser({ ...user, password: e.target.value })}/>
-                </td>
-                <td>
+                      type="passwrd"
+                      className="form-control"
+                      placeholder="password"
+                      value={user.password} 
+                      onChange={(e) => setUser({ ...user, password: e.target.value })}/>
+                </th>
+                <th style={{ backgroundColor: '#F0FFFF' }}>First Name
                   <input 
-                    ype="text"
-                    className="form-control"
-                    placeholder="first name"
-                    value={user.firstName}
-                    onChange={(e) => setUser({ ...user, firstName: e.target.value })}/>
-                </td>
-                <td>
+                      ype="text"
+                      className="form-control"
+                      placeholder="first name"
+                      value={user.firstName}
+                      onChange={(e) => setUser({ ...user, firstName: e.target.value })}/>
+                </th>
+                <th style={{ backgroundColor: '#F0FFFF' }}>Last Name
                   <input 
-                    type="text"
-                    className="form-control"
-                    placeholder="last name"
-                    value={user.lastName}
-                    onChange={(e) => setUser({ ...user, lastName: e.target.value })}/>
-                </td>
-                <td>
+                      type="text"
+                      className="form-control"
+                      placeholder="last name"
+                      value={user.lastName}
+                      onChange={(e) => setUser({ ...user, lastName: e.target.value })}/>
+                </th>
+                <th style={{ backgroundColor: '#F0FFFF' }}>Role
                   <select 
-                    className="form-control"
-                    value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })}>
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="SELLER">SELLER</option>
-                  </select>
-                </td>
-                <td>
-                    <BsFillCheckCircleFill onClick={updateUser}
+                      className="form-control"
+                      value={user.role} onChange={(e) => setUser({ ...user, role: e.target.value })}>
+                      <option value="USER">User</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="SELLER">SELLER</option>
+                    </select>
+                </th>
+                <td style={{ backgroundColor: '#F0FFFF' }}>
+                    <BsFillCheckCircleFill onClick={updateUser} 
                         className="me-2 text-success fs-1 text" />
                 </td>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               {users.map((user) => (
-                <tr key={user._id}>
-                  <td><Link to={`/psp/profile/${user._id}`}>{user.username}</Link></td>
-                  <td>{user.firstName}</td>
-                  <td>{user.lastName}</td>
-                  <td className="text-nowrap">
+                <tr key={user._id} >
+                  <td style={{ backgroundColor: '#F0FFFF' }}><Link style={{ backgroundColor: '#F0FFFF' }} to={`/psp/profile/${user._id}`}>{user.username}</Link></td>
+                  <td style={{ backgroundColor: '#F0FFFF' }}>{user.password}</td>
+                  <td style={{ backgroundColor: '#F0FFFF' }}>{user.firstName}</td>
+                  <td style={{ backgroundColor: '#F0FFFF' }}>{user.lastName}</td>
+                  <td style={{ backgroundColor: '#F0FFFF' }}>{user.role}</td>
+                  <td style={{ backgroundColor: '#F0FFFF' }} className="text-nowrap">
                     <button className="btn btn-danger me-2">
                         <BsTrash3Fill onClick={() => deleteUser(user)} />
                     </button>

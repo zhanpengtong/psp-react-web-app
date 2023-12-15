@@ -17,7 +17,7 @@ function Register() {
     }
   };
   return (
-    <div>
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
       <div className="col-4 mx-auto">
       < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
         <h1 style={{color: '#66CCCC', textAlign: 'center'}}>Register</h1>

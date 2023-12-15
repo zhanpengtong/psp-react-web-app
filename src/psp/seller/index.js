@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 
-
 function Seller () {
   const { id } = useParams();
   const [user, setUser] = useState(null);
@@ -41,42 +40,56 @@ function Seller () {
     } catch (error) {
     }
   };
+
   const [items, setItems] = useState(
     {
       itemName: '',
       Price: Number(''),
       description: '',
       category: '',
-      reviews: '[]',
     }
   );
-  const signout = async () => {
-    const status = await client.signout();
-    navigate("/psp/login");
-  };
+  const [sellList, setSellList] = useState(null);
+  const fetchSellList = async () => {
+    try {
+      const data = await client.findItemBySellerId(user._id);
+      setSellList(data);
+    } catch (error) {
+    }
+  }
+  const deleteItem = async (id) => {
+    try {
+      await client.deleteItemByitemId(id);
+      fetchSellList();
+    } catch (error) {
+    }
+  }
+  const handelSelectItem = (item) => {
+    setItems(item);
+  }
+
   useEffect(() => {
     if (id) {
       findUserById(id);
     } else
-    fetchUser();
+      fetchUser();
   }, []);
 
   useEffect(() => {
     if (user) {
       fetchSellerItems();
+      fetchSellList();
     }
-  }
-  , [user]);
-
+  }, [user]);
 
   return (
-    <div >
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }} >
       <div className="col-4 mx-auto">
-        < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
-        <h1 style={{color: '#66CCCC', textAlign: 'center'}}>Seller Page</h1>
+        <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
+        <h1 style={{ color: '#66CCCC', textAlign: 'center' }}>Seller Page</h1>
       </div>
-      <div>
-        
+      <div className="col-11 mx-auto">
+
         {!user && <h3>Please sign in to access this page</h3>}
         {user && (user.role === 'USER' || user.role === 'ADMIN') && <h1>Your are not Seller</h1>}
         {user && user.role === 'SELLER' && <div>
@@ -87,19 +100,19 @@ function Seller () {
             type="text"
             className="form-control"
             value={items.itemName}
-            onChange={(e) => setItems({ ...items, itemName: e.target.value })}/>
+            onChange={(e) => setItems({ ...items, itemName: e.target.value })} />
           <label>Price</label>
           <input
             type="number"
             className="form-control"
             value={items.Price}
-            onChange={(e) => setItems({ ...items, Price: e.target.value })}/>
+            onChange={(e) => setItems({ ...items, Price: e.target.value })} />
           <label>Description</label>
           <input
             type="text"
             className="form-control"
             value={items.description}
-            onChange={(e) => setItems({ ...items, description: e.target.value })}/>
+            onChange={(e) => setItems({ ...items, description: e.target.value })} />
           <label>Category</label>
           <select
             className="form-control"
@@ -111,15 +124,46 @@ function Seller () {
             <option value="Dog Food">Dog Food</option>
             <option value="Cat Food">Cat Food</option>
           </select>
-          <button onClick={() => { client.createItem(items.itemName, items.Price, items.description, items.category, items.reviews); openPopup();}} className="btn btn-primary">Add Item</button>
+          <button style={{ marginRight: '5px' }}
+            onClick={() => { client.createItem(user._id, items.itemName, items.Price, 
+            items.description, items.category); openPopup(); }} 
+            className="btn btn-primary">Add Item</button>
+          <button onClick={() => { client.updateItem(items._id, items.itemName, 
+            items.Price, items.description, items.category); window.location.reload();}} 
+            className="btn btn-primary">Update</button>
 
           {isPopupOpen && (
             <div className="popup">
               <p>Your item has been added successfully</p>
-              <button onClick={ closePopup }>Close</button>
+              <button onClick={closePopup}>Close</button>
             </div>
           )}
+          <br />
 
+            <div className="row">
+              {sellList && sellList.map((item) => (
+                <div key={item._id} className="col-lg-4 col-md-6 mb-4">
+                  <div className="card wd-card">
+                    <img
+                      src={item.imageURL} // Replace with your item's image URL
+                      className="card-img-top"
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">Name: {item.itemName}</h5>
+                      <p className="card-text">Price: ${item.Price}</p>
+                      <p className="card-text">Category: {item.category}</p>
+                      <p className="card-text">Description: {item.description}</p>
+                    </div>
+                    <div className='card-bottom'>
+                    <Link style={{ marginRight: '5px' }} className="btn btn-primary" to={`/psp/details/${item._id}`}> View Item </Link>
+                      <button style={{ marginRight: '5px' }}
+                        onClick={() => deleteItem(item._id)} className="btn btn-danger">Delete</button>
+                      <button onClick={() => handelSelectItem(item)} className="btn btn-primary">Edit</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>}
       </div>
     </div>

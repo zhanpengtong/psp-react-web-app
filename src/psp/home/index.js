@@ -41,17 +41,20 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
       <div className="col mx-auto text-end">
-        <Link to="/psp/login" className="btn btn-primary">Log In</Link>
+        <Link style={{ marginRight: '5px' }} to="/psp/login" className="btn btn-primary">Log In</Link>
         <button onClick={signout} className="btn btn-danger">Sign Out</button>
       </div>
       <div className="col-4 mx-auto">
           <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
           <h1 style={{ color: '#66CCCC', textAlign: 'center'}}>Home</h1>
         </div>
+        {user && user.role === 'SELLER' && (
+          <h3>Welcome {user.firstName} {user.lastName}</h3>
+        )}
         {items.map((item) => (
-          <div key={item.id} className="card">
+          <div key={item.id} className="card ">
             <div className="card-header">
               <h3>{item.itemName}</h3>
             </div>
@@ -84,3 +87,6 @@ function Home() {
   );
 }
         export default Home;
+
+
+

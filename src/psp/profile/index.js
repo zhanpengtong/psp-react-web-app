@@ -1,6 +1,4 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import allUser from "./allUser";
 import * as client from "../client";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,26 +6,8 @@ import { useParams } from "react-router-dom";
 import logo2 from "../images/logo2.png";
 
 function Profile() {
-  
   const { id } = useParams();
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    password: "",
-    email: "",
-    phoneNumber: "",
-    role: "",
-  });
-  const fakeUser = {
-    firstName: "first name",
-    lastName: "last name",
-    username: "username",
-    password: "password",
-    email: "email",
-    phoneNumber: "phone number",
-    role: "USER",
-  };
+  const [user, setUser] = useState({});
   const findUserById = async (id) => {
     const user = await client.findUserById(id);
     setUser(user);
@@ -38,26 +18,27 @@ function Profile() {
       const user = await client.account();
       setUser(user);
     } catch (error) {
-      setUser(fakeUser);
     }
-  };
-  const save = async () => {
-    const status = await client.updateUser(user._id, user);
   };
   const updateUser = async () => {
     try {
       const status = await client.updateUser(user._id, user);
-    //   setUsers(users.map((u) => (u._id === user._id ? user : u)));
+      const username = user.username;
+      const password = user.password;
+      signout();
+      const credentials = { username, password };
+      const signinStatus = await client.signin(credentials);
+      navigate("/psp/profile");
     } catch (err) {
       console.log(err);
     }
   };
+  const userIId = user._id || id;
   const [lists, setlists] = useState([]);
-  const fetchReviewsById = async (id) => {
-    const lists = await client.findReviewByUserId(id);
+  const fetchReviewsById = async () => {
+    const lists = await client.findReviewByUserId(userIId);
     setlists(lists);
-};
-  
+  };
   
   const signout = async () => {
     const status = await client.signout();
@@ -66,18 +47,20 @@ function Profile() {
   useEffect(() => {
     if (id) {
       findUserById(id);
-      fetchReviewsById(id);
+      fetchReviewsById();
     } else
     fetchUser();
   }, []);
-  console.log("List Object:", lists);
+
+
+ 
   return (
-    <div>
-        <div className="col-4 mx-auto">
+    <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
+        <div className="col-5 mx-auto">
         < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
           <h1 style={{color: '#66CCCC', textAlign: 'center'}}>Profile</h1>
         </div>
-        <div className="col-4 mx-auto">
+        <div className="col-5 mx-auto">
             {user && (
               <div>
                 <label> First Name </label>
@@ -136,27 +119,25 @@ function Profile() {
                   <option value="ADMIN">ADMIN</option>
                   <option value="USER">USER</option>
                 </select>
-                <button onClick={updateUser} className="btn btn-primary">
+                <button style={{ marginRight: '5px' }} onClick={updateUser} className="btn btn-primary">
                   Update
                 </button>
-                <button onClick={signout} className="btn btn-danger">
+                <button style={{ marginRight: '5px' }} onClick={signout} className="btn btn-danger">
                   Sign Out
-                </button>
-                <button onClick={save} className="btn btn-primary" >
-                  Save
                 </button>
                 
                 {["USER", "SELLER"].includes(user.role) && (
-                  <Link to="/psp/profile/allUser" className="btn btn-warning">
+                  <Link style={{ marginRight: '5px' }} to="/psp/profile/allUser" className="btn btn-warning">
                     All Users
                   </Link>
                 )}
                   
                 {user.role === "ADMIN" && (
-                  <Link to="/psp/profile/editUser" className="btn btn-warning">
+                  <Link style={{ marginRight: '5px' }} to="/psp/profile/editUser" className="btn btn-warning">
                     Edit Users
                   </Link>
                 )}
+                <button onClick={fetchReviewsById} className="btn btn-primary"> Refresh Review List </button>
               </div>
             )}
             <div>

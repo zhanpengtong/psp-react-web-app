@@ -11,8 +11,20 @@ import EditUser from "./profile/editUser";
 import PspNavigation from "./pspNavigation";
 import Signout from "./signout";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
 function Psp() {
+  const goToHome = () => {
+    if (window.location.pathname === "/") {
+      window.location.href = "/psp/home";
+    }
+  }
+
+  useEffect(() => {
+    goToHome();
+  }
+  , []);
+
   return (
     <Router>
       <div className="d-flex">

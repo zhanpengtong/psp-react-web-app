@@ -9,3 +9,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
   }
+
+.wd-card {
+  min-height: 400px; 
+}

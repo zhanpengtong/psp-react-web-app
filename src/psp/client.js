@@ -9,6 +9,7 @@ const request = axios.create({
   withCredentials: true,
 });
 
+
 // User API
 export const signin = async (credentials) => {
   const response = await request.post(`${USERS_API}/signin`, credentials);
@@ -120,20 +121,24 @@ export const findItemById = async (id) => {
   const response = await request.get(`${ITEMS_API}/${id}`);
   return response.data;
 }
-export const createItem = async (itemName, Price, description, category) => {
-  const response = await request.post(`${ITEMS_API}/create/${itemName}/${Price}/${description}/${category}`);
+export const createItem = async (userId, itemName, Price, description, category) => {
+  const response = await request.post(`${ITEMS_API}/create/${userId}/${itemName}/${Price}/${description}/${category}`);
   return response.data;
 }
-export const updateItem = async (id, item) => {
-  const response = await request.put(`${ITEMS_API}/update/${id}`, item);
+export const updateItem = async (id, itemName, Price, description, category) => {
+  const response = await request.put(`${ITEMS_API}/update/${id}/${itemName}/${Price}/${description}/${category}`);
   return response.data;
 }
-export const deleteItem = async (id) => {
+export const deleteItemByitemId = async (id) => {
   const response = await request.delete(`${ITEMS_API}/delete/${id}`);
   return response.data;
 }
 export const searchItem = async (matchAny) => {
   const response = await request.get(`${ITEMS_API}/search/${matchAny}`);
+  return response.data;
+}
+export const findItemBySellerId = async (sellerId) => {
+  const response = await request.get(`${ITEMS_API}/seller/${sellerId}`);
   return response.data;
 }
 
