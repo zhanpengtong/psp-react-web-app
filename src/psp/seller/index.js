@@ -135,7 +135,7 @@ function Seller () {
           {isPopupOpen && (
             <div className="popup">
               <p>Your item has been added successfully</p>
-              <button onClick={closePopup}>Close</button>
+              <button className="btn btn-primary" onClick={closePopup}>Close</button>
             </div>
           )}
           <br />

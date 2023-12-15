@@ -126,7 +126,7 @@ function Profile() {
                   Sign Out
                 </button>
                 
-                {["USER", "SELLER"].includes(user.role) && (
+                {user.role !== "ADMIN" && (
                   <Link style={{ marginRight: '5px' }} to="/psp/profile/allUser" className="btn btn-warning">
                     All Users
                   </Link>

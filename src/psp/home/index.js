@@ -50,11 +50,11 @@ function Home() {
           <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
           <h1 style={{ color: '#66CCCC', textAlign: 'center'}}>Home</h1>
         </div>
-        {user && user.role === 'SELLER' && (
-          <h3>Welcome {user.firstName} {user.lastName}</h3>
+        {user && (
+          <h3 className="col-11 mx-auto">Welcome {user.firstName} {user.lastName}</h3>
         )}
         {items.map((item) => (
-          <div key={item.id} className="card ">
+          <div className="col-11 mx-auto card" key={item.id} >
             <div className="card-header">
               <h3>{item.itemName}</h3>
             </div>

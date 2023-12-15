@@ -43,10 +43,12 @@ function Cart() {
 
   return (
     <div style={{ backgroundColor: '#F0FFFF', height: '4000px' }}>
-      <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
-      <h1 style={{ color: '#66CCCC', textAlign: 'center' }}>Cart</h1>
+      <div className="col-4 mx-auto">
+          <img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
+          <h1 style={{ color: '#66CCCC', textAlign: 'center'}}>Cart</h1>
+      </div>
       {user && (
-        <div>
+        <div className="col-11 mx-auto">
           <h4 style={{ textAlign: 'left' }}>Welcome {user.firstName} {user.lastName}!</h4>
           <h5 style={{ textAlign: 'left' }}>Your Cart</h5>
           {carts.map((cart) => (
@@ -60,7 +62,7 @@ function Cart() {
               </div>
             </div>
           ))}
-          <div className="total-price" style={{ textAlign: 'right', marginTop: '20px' }}>
+          <div className="total-price" style={{ textAlign: 'right', marginTop: '40px' }}>
             <strong>Total Price: ${getTotalPrice().toFixed(2)}</strong>
           </div>
         </div>

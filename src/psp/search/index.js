@@ -49,25 +49,28 @@ function Search() {
       < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
         <h1 style={{color: '#66CCCC', textAlign: 'center'}}>Search</h1>
       </div>
-      <button
-        onClick={() => navigate(`/psp/search/${searchTerm}`)}
-        className="btn btn-primary float-end"
-      >
-        Search
-      </button>
-      <input
-        type="text"
-        className="form-control w-75"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(event) => {
-          setSearchTerm(event.target.value);
-        }}
-      />
-      <h2>Results</h2>
+      <div className="col-11 mx-auto">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+        <button
+          onClick={() => navigate(`/psp/search/${searchTerm}`)}
+          className="btn btn-primary float-end"
+        >
+          Search
+        </button>
+      </div>
+      <br />
+      <h2 className="col-11 mx-auto">Results:</h2>
       <br />
       {results && (
-        <table className="card-group">
+        <table className="card-group col-11 mx-auto">
           <tbody>
             {results.map((item) => (
               <tr className="card" key={item.id}>

@@ -16,7 +16,7 @@ function Alluser() {
         < img src={logo2} alt="Pet Supplies Pro Logo" style={{ width: '250px', height: 'auto', display: 'block', margin: 'auto' }} />
         <h1 style={{color: '#66CCCC', textAlign: 'center'}}>User List</h1>
       </div>
-      <div>
+      <div className="col-11 mx-auto">
         <table className="table" >
           <thead>
             <tr>
